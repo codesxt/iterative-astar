@@ -10,5 +10,5 @@ function dist = manhattan(state, goal)
 			diff_mat(i,j)=abs(i-u)+abs(j-v);
 		end
 	end
-	cost = sum (sum (diff_mat));
+	dist = sum (sum (diff_mat));
 endfunction
