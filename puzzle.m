@@ -1,5 +1,5 @@
 % clear; clc;
-initial_state = [7,2,4;5,0,6;8,3,1];
+initial_state = [4,2,8;7,5,3;1,6,0];
 % initial_state = random_puzzle();
 % initial_state = [1,2,3;4,5,0;7,8,6];
 goal = [1,2,3;4,5,6;7,8,0];
@@ -54,5 +54,5 @@ while ((length(open_list) > 0) && ~found)
 	open_list(id) = [];
 	
 	iters++;
-	printf("Iteraciones: %d\nLista abierta: %d\nLista cerrada: %d\nMin f: %d", iters, length(open_list), length(closed_list), min_f)
+	printf("Iteraciones: %d\nLista abierta: %d\nLista cerrada: %d\nMin f: %d\nProfundideishons: %d\n", iters, length(open_list), length(closed_list), min_f, open_list(id).g)
 endwhile
