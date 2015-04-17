@@ -38,19 +38,6 @@ while ((length(open_list) > 0) && ~found)
 				found = true;
 				break;
 			endif
-			% Si un nodo con el mismo estado que este hijo y menor f está en la lista abierta, ignorar este nodo
-			for j=1:length(open_list)
-				if(hamming(open_list(j).state, new_children(i).state) && (new_children(i).f > open_list(j).f))
-					break;
-				endif
-			endfor
-			% Si un nodo con el mismo estado que este hijo y menor f esta en la lista abierta, ignorar este nodo
-			for j=1:length(closed_list)
-				if(hamming(closed_list(j).state, new_children(i).state) && (new_children(i).f > open_list(j).f))
-					break;
-				endif
-			endfor
-			%//        otherwise, add the node to the open list
 			open_list(length(open_list)+1) = new_children(i);		
 		endif
 	endfor
