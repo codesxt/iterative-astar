@@ -1,17 +1,13 @@
-% clear; clc;
-% initial_state = [4,2,8;7,5,3;1,6,0];
-% initial_state = random_puzzle();
-% initial_state = [1,2,3;4,5,0;7,8,6];
-% initial_state = [1,2,0;4,5,3;7,8,6];
-initial_state = [0,4,3;6,8,5;2,7,1];
+clear; clc;
+initial_state = random_puzzle();
+
 goal = [1,2,3;4,5,6;7,8,0];
 
 % Modo mediocre
 % initial_state = [3, 1; 0, 2];
 % goal = [1,2;3,0];
 
-max_iter=150;
-set(0,'RecursionLimit',max_iter)
+max_iters = 1000;
 
 open_list = struct();
 closed_list = struct();
@@ -20,6 +16,8 @@ open_list(1) = makechild(initial_state, initial_state, goal, 0, 0);
 
 found = false;
 iters = 0;
+
+tic();
 while ((length(open_list) > 0) && ~found)
 	[min_f, id] = min_priority(open_list);	
 	% Copiar nodo a expandir a la lista cerrada
@@ -44,15 +42,19 @@ while ((length(open_list) > 0) && ~found)
 	% Eliminar nodo expandido de la lista abierta
 	open_list(id) = [];
 	
+	printf("Iteración: %d\n", iters);
 	iters++;
-	printf("Iteraciones: %d\n", iters);
-	%printf("Lista abierta: %d\n", length(open_list));
-	%printf("Lista cerrada: %d\n", length(closed_list));
-	%if(length(open_list) > 0 && (nfields(open_list(1)) > 0))
-	%	printf("Profundidad: %d\n", open_list(id).g);
-	%endif
+	if(iters > max_iters)
+		break;
+	endif
 endwhile
+t2 = toc();
 
-% Imprime el camino pa' trás
-last_node_id = length(closed_list);
-print_path(closed_list(last_node_id), closed_list)
+if(found)
+	last_node_id = length(closed_list);
+	print_path(closed_list(last_node_id), closed_list)	
+	printf("El puzle fue solucionado.\n");
+else
+	printf("No se encontró una solución para el puzle en %d iteraciones.\n", (iters-1));
+endif
+printf("Tiempo de ejecución: %f segundirijillos\n", t2);
